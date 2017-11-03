@@ -5,12 +5,20 @@
         <item
             android:id="@+id/nav_temporeal"
             android:icon="@drawable/ic_bus_icon"
-            android:title="Ônibus Tempo Real"
-            />
+            android:title="Ônibus Tempo Real" />
         <item
             android:id="@+id/nav_horarios"
             android:icon="@drawable/ic_horarios"
-            android:title="Horários de Ônibus" />
+            android:title="Horários de Ônibus">
+            <menu>
+                <item
+                    android:id="@+id/hCentenario"
+                    android:title="Horário Centenário"></item>
+                <item
+                    android:id="@+id/hSantaCatarina"
+                    android:title="Horário Hospital Santa Catarina"></item>
+            </menu>
+        </item>
         <item
             android:id="@+id/nav_rotas"
             android:icon="@drawable/ic_rota"

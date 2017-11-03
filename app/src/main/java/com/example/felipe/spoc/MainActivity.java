@@ -19,12 +19,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private FragmentManager fragmentManager;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,13 +53,10 @@ public class MainActivity extends AppCompatActivity
 
         transaction.add(R.id.container, new MapsFragment(), "MapsFragment");
         transaction.commitAllowingStateLoss();
-        mostrarToastLongo("Bem vindo, "+getIntent().getStringExtra("nomedocara"));
-
+        mostrarToastLongo("Bem vindo, " + getIntent().getStringExtra("nomedocara"));
 
 
     }
-
-
 
 
     @Override
@@ -92,15 +91,13 @@ public class MainActivity extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
-    public void mostrarToastLongo(String msg){
+    public void mostrarToastLongo(String msg) {
         Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_LONG).show();
     }
 
-    public void mostrarToastCurto(String msg){
+    public void mostrarToastCurto(String msg) {
         Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
     }
-
-
 
 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
@@ -109,20 +106,27 @@ public class MainActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         MapsFragment mapinha = (MapsFragment) getSupportFragmentManager().findFragmentByTag("MapsFragment");
         int id = item.getItemId();
-    //dae
         if (id == R.id.nav_temporeal) {
 
-        } else if (id == R.id.nav_horarios) {
-
-        } else if (id == R.id.tpitpr){
+        } else if (id == R.id.hCentenario) {
+            horarioCentenario();
+        } else if (id == R.id.hSantaCatarina){
+            horarioHospital();
+        } else if (id == R.id.tpitpr) {
+            if (!mapinha.isVisible()) {
+                puxarMapa(mapinha);
+            }
             mapinha.rotaPiPr();
             //backgroundWorker.execute("posicao","1");
-        } else if (id == R.id.nav_logout){
-             signOut();
-        } else if (id == R.id.nav_teste){
-             mapinha.startCountDownTimer();
-        } else if (id == R.id.tprtpi){
-             mapinha.rotaPrPi();
+        } else if (id == R.id.nav_logout) {
+            signOut();
+        } else if (id == R.id.nav_teste) {
+            mapinha.startCountDownTimer();
+        } else if (id == R.id.tprtpi) {
+            if (!mapinha.isVisible()) {
+                puxarMapa(mapinha);
+            }
+            mapinha.rotaPrPi();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -135,4 +139,23 @@ public class MainActivity extends AppCompatActivity
         finishAffinity();
         startActivity(new Intent(getApplicationContext(), LoginActivity.class));
     }
+
+    void horarioCentenario() {
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        CentenarioFragment cf = new CentenarioFragment();
+        transaction.replace(R.id.container, cf, "CentenarioFragment").addToBackStack(null).commit();
+    }
+
+    void horarioHospital() {
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        HospitalscFragment hf = new HospitalscFragment();
+        transaction.replace(R.id.container, hf, "HospitalFragment").addToBackStack(null).commit();
+    }
+
+    void puxarMapa(MapsFragment mf) {
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.container, mf, "MapsFragment").addToBackStack(null).commit();
+    }
+
+
 }
