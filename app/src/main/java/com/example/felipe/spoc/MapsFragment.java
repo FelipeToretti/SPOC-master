@@ -20,6 +20,7 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
 
@@ -28,7 +29,8 @@ public class MapsFragment extends SupportMapFragment implements OnMapReadyCallba
 
     private GoogleMap mMap;
     private int contadorWP = 0;
-
+    private boolean ativado = false;
+    CountDownTimer cdt;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -70,6 +72,14 @@ public class MapsFragment extends SupportMapFragment implements OnMapReadyCallba
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(crici, zoomInicial));
 
 
+    }
+
+    public boolean isAtivado() {
+        return ativado;
+    }
+
+    public void setAtivado(boolean ativado) {
+        this.ativado = ativado;
     }
 
     public void rotaPrCe() {
@@ -247,26 +257,25 @@ public class MapsFragment extends SupportMapFragment implements OnMapReadyCallba
 
 
     public void startCountDownTimer() {
-        /*BackgroundWorker backgroundWorker = new BackgroundWorker(getActivity().getApplicationContext());
-        backgroundWorker.execute("posicao", "1");
-        String pos = BackgroundWorker.posicao;
-        mMap.addMarker(new MarkerOptions().position(formataCoordenadas(pos)).icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_busandando)));
-*/
 
-        CountDownTimer cdt = new CountDownTimer(120000, 3000) {
-            @Override
-            public void onTick(long millisUntilFinished) {
-                BackgroundWorker backgroundWorker = new BackgroundWorker(getActivity().getApplicationContext());
-                backgroundWorker.execute("posicao", "1");
-                String pos = BackgroundWorker.posicao;
-                mMap.addMarker(new MarkerOptions().position(formataCoordenadas(pos)).icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_busandando)));
-            }
+                    cdt = new CountDownTimer(120000, 3000) {
+                    Marker atual = mMap.addMarker(new MarkerOptions().position(new LatLng(-28.210056, 118.150468)));
+                    @Override
+                    public void onTick(long millisUntilFinished) {
+                        atual.remove();
+                        BackgroundWorker backgroundWorker = new BackgroundWorker(getActivity().getApplicationContext());
+                        backgroundWorker.execute("posicao", "1");
+                        String pos = BackgroundWorker.posicao;
+                        mMap.addMarker(new MarkerOptions().position(formataCoordenadas(pos)).icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_busandando)));
+                    }
 
-            @Override
-            public void onFinish(){
+                    @Override
+                    public void onFinish() {
 
-            }
-        }.start();
+                    }
+                };
+
+
 
     }
 
