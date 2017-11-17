@@ -118,10 +118,10 @@ public class MainActivity extends AppCompatActivity
                 puxarMapa(mapinha);
             }
             mapinha.rotaPiCe();
-            //backgroundWorker.execute("posicao","1");
         } else if (id == R.id.nav_logout) {
             signOut();
         } else if (id == R.id.nav_teste) {
+
             mapinha.startCountDownTimer();
         } else if (id == R.id.tprtce) {
             if (!mapinha.isVisible()) {

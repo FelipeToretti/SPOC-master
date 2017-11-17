@@ -26,8 +26,7 @@ import java.net.URLEncoder;
 public class BackgroundWorker extends AsyncTask<String, Void, String> {
     Context context;
     AlertDialog alertDialog;
-    public static String latitude = "";
-    public static String longitude = "";
+    public static String posicao = "";
 
 
     BackgroundWorker(Context ctx) {
@@ -170,12 +169,12 @@ public class BackgroundWorker extends AsyncTask<String, Void, String> {
         } else if (result.startsWith("l")) {
             if (!result.equals("ln")) {
                 Intent imain = new Intent(context, MainActivity.class);
-                /*result = result.substring(1);
+                result = result.substring(1);
                 int spaceIndex = result.indexOf(" ");
                 if (spaceIndex != -1) {
                     result = result.substring(0, spaceIndex);
                 }
-                result = result.substring(0, 1).toUpperCase() + result.substring(1);*/
+                result = result.substring(0, 1).toUpperCase() + result.substring(1);
                 imain.putExtra("nomedocara", result);
                 context.startActivity(imain);
             } else {
@@ -183,22 +182,10 @@ public class BackgroundWorker extends AsyncTask<String, Void, String> {
             }
         } else if (result.startsWith("p")) {
             if (!result.equals("pn")) {
-                BackgroundWorker.longitude = "";
-                BackgroundWorker.latitude = "";
-                boolean virgula = false;
-                for (int i = 1; i < result.length(); i++) {
-                    if (!virgula) {
-                        if (!(result.charAt(i) == ',')) {
-                            BackgroundWorker.latitude += result.charAt(i);
-                        } else {
-                            virgula = true;
-                        }
-                    } else {
-                        BackgroundWorker.longitude += result.charAt(i);
-                    }
-                }
-                //mostrarToast(latitude+" "+longitude);
-
+                BackgroundWorker.posicao = "";
+                result = result.substring(1);
+                BackgroundWorker.posicao = result;
+                mostrarToast(BackgroundWorker.posicao);
             }
 
         }

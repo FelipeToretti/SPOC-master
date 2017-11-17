@@ -20,7 +20,6 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
 
@@ -248,60 +247,53 @@ public class MapsFragment extends SupportMapFragment implements OnMapReadyCallba
 
 
     public void startCountDownTimer() {
-        float latt = Float.parseFloat(BackgroundWorker.latitude);
-        float longg = Float.parseFloat(BackgroundWorker.longitude);
-        LatLng posicao = new LatLng(latt, longg);
-        mMap.addMarker(new MarkerOptions().position(posicao).icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_busandando)));
-        //LatLng crici = new LatLng(latt, longg);
-        //mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(crici, 14));
-        //mostrarToast(BackgroundWorker.latitude+BackgroundWorker.longitude);
-        //BackgroundWorker backgroundWorker = new BackgroundWorker(getActivity().getApplicationContext());
-        //backgroundWorker.execute("posicao","1");
-        //mostrarToast(BackgroundWorker.latitude+" "+BackgroundWorker.longitude);
+        /*BackgroundWorker backgroundWorker = new BackgroundWorker(getActivity().getApplicationContext());
+        backgroundWorker.execute("posicao", "1");
+        String pos = BackgroundWorker.posicao;
+        mMap.addMarker(new MarkerOptions().position(formataCoordenadas(pos)).icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_busandando)));
+*/
 
-        /* LatLng latlng0 = new LatLng(-28.679778, -49.370135);
-        LatLng latlng1 = new LatLng(-28.679509, -49.371631);
-        LatLng latlng2 = new LatLng(-28.679354, -49.372784);
-        LatLng latlng3 = new LatLng(-28.679533, -49.373980);
-        LatLng latlng4 = new LatLng(-28.679909, -49.375043);
-        LatLng latlng5 = new LatLng(-28.680304, -49.376094);
-        LatLng latlng6 = new LatLng(-28.680869, -49.377607);
-        LatLng latlng7 = new LatLng(-28.681293, -49.379324);
-        LatLng latlng8 = new LatLng(-28.681500, -49.380708);
-        LatLng latlng9 = new LatLng(-28.681556, -49.382907);
-
-        final LatLng[] arrayLatLng = new LatLng[10];
-        arrayLatLng[0] = latlng0;
-        arrayLatLng[1] = latlng1;
-        arrayLatLng[2] = latlng2;
-        arrayLatLng[3] = latlng3;
-        arrayLatLng[4] = latlng4;
-        arrayLatLng[5] = latlng5;
-        arrayLatLng[6] = latlng6;
-        arrayLatLng[7] = latlng7;
-        arrayLatLng[8] = latlng8;
-        arrayLatLng[9] = latlng9;
-
-        int intervalo = 3000;
-
-        CountDownTimer cdt = new CountDownTimer((intervalo * 10)+500, intervalo) {
-            int markerNo = 0;
+        CountDownTimer cdt = new CountDownTimer(120000, 3000) {
             @Override
             public void onTick(long millisUntilFinished) {
-
-                if(markerNo <= 9){
-                    mMap.clear();
-                    mMap.addMarker(new MarkerOptions().position(arrayLatLng[markerNo]).icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_busandando)));
-                    markerNo++;
-                }
+                BackgroundWorker backgroundWorker = new BackgroundWorker(getActivity().getApplicationContext());
+                backgroundWorker.execute("posicao", "1");
+                String pos = BackgroundWorker.posicao;
+                mMap.addMarker(new MarkerOptions().position(formataCoordenadas(pos)).icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_busandando)));
             }
 
             @Override
             public void onFinish(){
 
             }
-        }.start();*/
+        }.start();
 
+    }
+
+    public LatLng formataCoordenadas(String cords){
+        String array[] = new String[3];
+        String graulat,graulng;
+        array = cords.split(":");
+        array[1] = array[1].substring(0, array[1].length() -2);
+        array[1] = array[1].substring(1);
+        array[1] = array[1].substring(0, 2) + " " + array[1].substring(2, array[1].length());
+        array[2] = array[2].substring(0, 2) + " " + array[2].substring(2, array[2].length());
+        graulat = array[1].substring(0,2);
+        graulng = array[2].substring(0,2);
+        array[1] = array[1].substring(3,11);
+        array[2] = array[2].substring(3,11);
+        float decimalLat = Float.parseFloat(array[1]) / 60;
+        float decimalLng = Float.parseFloat(array[2]) / 60;
+        decimalLat = Float.parseFloat(String.valueOf(decimalLat).substring(0,8));
+        decimalLng = Float.parseFloat(String.valueOf(decimalLng).substring(0,8));
+        array[1] = String.valueOf(Float.parseFloat(graulat) + decimalLat);
+        array[2] = String.valueOf(Float.parseFloat(graulng) + decimalLng);
+        array[1] = "-" + array[1].substring(0, array[1].length());
+        array[2] = "-" + array[2].substring(0, array[2].length());
+        Double latitude = Double.parseDouble(array[2]);
+        Double longitude = Double.parseDouble(array[1]);
+        LatLng posicaoFormatada = new LatLng(latitude,longitude);
+        return posicaoFormatada;
     }
 
     @Override
