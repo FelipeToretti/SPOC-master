@@ -38,30 +38,35 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     public void onReg(View view){
-
+        AutoCompleteTextView email = (AutoCompleteTextView) findViewById(R.id.emailREGISTRO);
         ConnectivityManager connectivityManager = (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
         if (!temInternet()) {
             mostrarToastLongo("Não há conexão com a internet.");
         } else {
-            BackgroundWorker backgroundWorker = new BackgroundWorker(this);
-            String type = "cadastro";
-            EditText nome = (EditText) findViewById(R.id.nomeREGISTRO);
-            AutoCompleteTextView email = (AutoCompleteTextView) findViewById(R.id.emailREGISTRO);
-            EditText senha = (EditText) findViewById(R.id.passwordREGISTRO);
-            EditText csenha = (EditText) findViewById(R.id.passwordCREGISTRO);
-            String nomeSTR = nome.getText().toString();
-            String emailSTR = email.getText().toString();
-            String senhaSTR = senha.getText().toString();
-            String csenhaSTR = csenha.getText().toString();
-            if (!senhaSTR.equals(csenhaSTR)){
-                mostrarToastCurto("As senhas não combinam.");
-            } else {
-                backgroundWorker.execute(type, emailSTR, senhaSTR, nomeSTR);
+            if (isEmailValid(email.getText().toString())) {
+                BackgroundWorker backgroundWorker = new BackgroundWorker(this);
+                String type = "cadastro";
+                EditText nome = (EditText) findViewById(R.id.nomeREGISTRO);
+                EditText senha = (EditText) findViewById(R.id.passwordREGISTRO);
+                EditText csenha = (EditText) findViewById(R.id.passwordCREGISTRO);
+                String nomeSTR = nome.getText().toString();
+                String emailSTR = email.getText().toString();
+                String senhaSTR = senha.getText().toString();
+                String csenhaSTR = csenha.getText().toString();
+                if (!senhaSTR.equals(csenhaSTR)) {
+                    mostrarToastCurto("As senhas não combinam.");
+                } else {
+                    backgroundWorker.execute(type, emailSTR, senhaSTR, nomeSTR);
+                }
+            }else{
+                mostrarToastCurto("E-mail inválido.");
             }
         }
     }
 
-
+    boolean isEmailValid(CharSequence email) {
+        return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches();
+    }
 
     public void mostrarToastLongo(String msg){
         Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_LONG).show();

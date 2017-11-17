@@ -170,12 +170,12 @@ public class BackgroundWorker extends AsyncTask<String, Void, String> {
         } else if (result.startsWith("l")) {
             if (!result.equals("ln")) {
                 Intent imain = new Intent(context, MainActivity.class);
-                result = result.substring(1);
+                /*result = result.substring(1);
                 int spaceIndex = result.indexOf(" ");
                 if (spaceIndex != -1) {
                     result = result.substring(0, spaceIndex);
                 }
-                result = result.substring(0, 1).toUpperCase() + result.substring(1);
+                result = result.substring(0, 1).toUpperCase() + result.substring(1);*/
                 imain.putExtra("nomedocara", result);
                 context.startActivity(imain);
             } else {

@@ -1,6 +1,8 @@
 package com.example.felipe.spoc;
 
 
+import android.Manifest;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
@@ -8,6 +10,7 @@ import android.os.Bundle;
 
 
 import android.os.CountDownTimer;
+import android.support.v4.app.ActivityCompat;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -53,13 +56,24 @@ public class MapsFragment extends SupportMapFragment implements OnMapReadyCallba
         BackgroundWorker backgroundWorker = new BackgroundWorker(getActivity().getApplicationContext());
         backgroundWorker.execute("posicao", "1");
         LatLng crici = new LatLng(-28.680006, -49.369911);
+        if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
+        mMap.setMyLocationEnabled(true);
         //mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(crici, zoomInicial));
 
 
     }
 
-    public void rotaPrPi() {
+    public void rotaPrCe() {
         mMap.clear();
         mMap.addPolyline(new PolylineOptions().add(
                 new LatLng(-28.684258, -49.344707),
@@ -100,48 +114,7 @@ public class MapsFragment extends SupportMapFragment implements OnMapReadyCallba
                 new LatLng(-28.681200, -49.364433),
                 new LatLng(-28.681102, -49.365108),
                 new LatLng(-28.680781, -49.366102),
-                new LatLng(-28.680206, -49.367965),
-                new LatLng(-28.680030, -49.370000),
-                new LatLng(-28.679466, -49.371946),
-                new LatLng(-28.679376, -49.372855),
-                new LatLng(-28.679380, -49.373159),
-                new LatLng(-28.679485, -49.373864),
-                new LatLng(-28.679646, -49.374357),
-                new LatLng(-28.680751, -49.377007),
-                new LatLng(-28.680930, -49.377774),
-                new LatLng(-28.681178, -49.379027),
-                new LatLng(-28.681442, -49.380067),
-                new LatLng(-28.681482, -49.380408),
-                new LatLng(-28.681612, -49.383614),
-                new LatLng(-28.681791, -49.384369),
-                new LatLng(-28.682350, -49.385409),
-                new LatLng(-28.684578, -49.388689),
-                new LatLng(-28.685147, -49.389269),
-                new LatLng(-28.685361, -49.389473),
-                new LatLng(-28.686016, -49.389749),
-                new LatLng(-28.686405, -49.389817),
-                new LatLng(-28.688417, -49.389765),
-                new LatLng(-28.688785, -49.389862),
-                new LatLng(-28.689460, -49.390223),
-                new LatLng(-28.689764, -49.390480),
-                new LatLng(-28.690156, -49.390942),
-                new LatLng(-28.694553, -49.395789),
-                new LatLng(-28.694618, -49.395895),
-                new LatLng(-28.695731, -49.397086),
-                new LatLng(-28.696274, -49.397701),
-                new LatLng(-28.698249, -49.399938),
-                new LatLng(-28.698226, -49.400055),
-                new LatLng(-28.698160, -49.402760),
-                new LatLng(-28.698171, -49.403293),
-                new LatLng(-28.698231, -49.403653),
-                new LatLng(-28.698394, -49.403944),
-                new LatLng(-28.699586, -49.406228),
-                new LatLng(-28.699985, -49.406995),
-                new LatLng(-28.700065, -49.407298),
-                new LatLng(-28.700097, -49.407449),
-                new LatLng(-28.700095, -49.407705),
-                new LatLng(-28.700202, -49.408205),
-                new LatLng(-28.700163, -49.408622))
+                new LatLng(-28.680049, -49.369954))
                 .width(5)
                 .color(Color.RED));
         int height = 50;
@@ -158,21 +131,10 @@ public class MapsFragment extends SupportMapFragment implements OnMapReadyCallba
         mMap.addMarker(new MarkerOptions().position(new LatLng(-28.680970, -49.362351)).icon(paradaIco));
         mMap.addMarker(new MarkerOptions().position(new LatLng(-28.680848, -49.366186)).icon(paradaIco));
         mMap.addMarker(new MarkerOptions().position(new LatLng(-28.680049, -49.369954)).title("Terminal Centro"));
-        mMap.addMarker(new MarkerOptions().position(new LatLng(-28.680038, -49.375093)).icon(paradaIco));
-        mMap.addMarker(new MarkerOptions().position(new LatLng(-28.681222, -49.378609)).icon(paradaIco));
-        mMap.addMarker(new MarkerOptions().position(new LatLng(-28.681696, -49.383317)).icon(paradaIco));
-        mMap.addMarker(new MarkerOptions().position(new LatLng(-28.683195, -49.386488)).icon(paradaIco));
-        mMap.addMarker(new MarkerOptions().position(new LatLng(-28.685633, -49.389485)).icon(paradaIco));
-        mMap.addMarker(new MarkerOptions().position(new LatLng(-28.692753, -49.393672)).icon(paradaIco));
-        mMap.addMarker(new MarkerOptions().position(new LatLng(-28.695346, -49.396558)).icon(paradaIco));
-        mMap.addMarker(new MarkerOptions().position(new LatLng(-28.697726, -49.399100)).icon(paradaIco));
-        mMap.addMarker(new MarkerOptions().position(new LatLng(-28.698432, -49.403999)).icon(paradaIco));
-        //fimparadas
-        mMap.addMarker(new MarkerOptions().position(new LatLng(-28.700163, -49.408622)).title("Terminal Pinheirinho"));
 
     }
 
-    public void rotaPiPr() {
+    public void rotaPiCe() {
         mMap.clear();
         mMap.addPolyline(new PolylineOptions().add(
                 new LatLng(-28.700138, -49.407889),
@@ -250,42 +212,7 @@ public class MapsFragment extends SupportMapFragment implements OnMapReadyCallba
                 new LatLng(-28.679526, -49.373081),
                 new LatLng(-28.679767, -49.371233),
                 new LatLng(-28.680008, -49.370148),
-                new LatLng(-28.680132, -49.369712),
-                new LatLng(-28.680281, -49.368696),
-                new LatLng(-28.680333, -49.368303),
-                new LatLng(-28.680386, -49.367975),
-                new LatLng(-28.680848, -49.366524),
-                new LatLng(-28.681207, -49.365336),
-                new LatLng(-28.681314, -49.364910),
-                new LatLng(-28.681395, -49.364287),
-                new LatLng(-28.681400, -49.363840),
-                new LatLng(-28.681351, -49.363373),
-                new LatLng(-28.681235, -49.362810),
-                new LatLng(-28.680997, -49.362181),
-                new LatLng(-28.680844, -49.361876),
-                new LatLng(-28.680505, -49.361391),
-                new LatLng(-28.680140, -49.360963),
-                new LatLng(-28.679170, -49.360005),
-                new LatLng(-28.678780, -49.359515),
-                new LatLng(-28.678535, -49.359080),
-                new LatLng(-28.678199, -49.358270),
-                new LatLng(-28.677846, -49.357243),
-                new LatLng(-28.677796, -49.356918),
-                new LatLng(-28.677775, -49.356151),
-                new LatLng(-28.677886, -49.355364),
-                new LatLng(-28.678274, -49.353455),
-                new LatLng(-28.678591, -49.352029),
-                new LatLng(-28.679070, -49.349771),
-                new LatLng(-28.679241, -49.349284),
-                new LatLng(-28.679394, -49.348979),
-                new LatLng(-28.679666, -49.348634),
-                new LatLng(-28.680428, -49.347810),
-                new LatLng(-28.681332, -49.346697),
-                new LatLng(-28.682519, -49.345479),
-                new LatLng(-28.683023, -49.345196),
-                new LatLng(-28.683177, -49.345153),
-                new LatLng(-28.683491, -49.345210),
-                new LatLng(-28.684077, -49.345044))
+                new LatLng(-28.680049, -49.369954))
                 .width(5)
                 .color(Color.RED));
 
@@ -309,13 +236,6 @@ public class MapsFragment extends SupportMapFragment implements OnMapReadyCallba
         mMap.addMarker(new MarkerOptions().position(new LatLng(-28.681222, -49.378609)).icon(paradaIco));
         mMap.addMarker(new MarkerOptions().position(new LatLng(-28.680038, -49.375093)).icon(paradaIco));
         mMap.addMarker(new MarkerOptions().position(new LatLng(-28.680049, -49.369954)).title("Terminal Centro"));
-        mMap.addMarker(new MarkerOptions().position(new LatLng(-28.680848, -49.366186)).icon(paradaIco));
-        mMap.addMarker(new MarkerOptions().position(new LatLng(-28.680970, -49.362351)).icon(paradaIco));
-        mMap.addMarker(new MarkerOptions().position(new LatLng(-28.678169, -49.358396)).icon(paradaIco));
-        mMap.addMarker(new MarkerOptions().position(new LatLng(-28.677919, -49.354772)).icon(paradaIco));
-        mMap.addMarker(new MarkerOptions().position(new LatLng(-28.678859, -49.350327)).icon(paradaIco));
-        //fim paradas
-        mMap.addMarker(new MarkerOptions().position(new LatLng(-28.684258, -49.344707)).title("Terminal Próspera"));
 
         /*LatLng pinheiro = new LatLng(-28.699804, -49.407654);
         LatLng centro = new LatLng(-28.679787, -49.371190);

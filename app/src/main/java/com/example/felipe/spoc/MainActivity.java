@@ -56,6 +56,7 @@ public class MainActivity extends AppCompatActivity
         mostrarToastLongo("Bem vindo, " + getIntent().getStringExtra("nomedocara"));
 
 
+
     }
 
 
@@ -112,21 +113,21 @@ public class MainActivity extends AppCompatActivity
             horarioCentenario();
         } else if (id == R.id.hSantaCatarina){
             horarioHospital();
-        } else if (id == R.id.tpitpr) {
+        } else if (id == R.id.tpitce) {
             if (!mapinha.isVisible()) {
                 puxarMapa(mapinha);
             }
-            mapinha.rotaPiPr();
+            mapinha.rotaPiCe();
             //backgroundWorker.execute("posicao","1");
         } else if (id == R.id.nav_logout) {
             signOut();
         } else if (id == R.id.nav_teste) {
             mapinha.startCountDownTimer();
-        } else if (id == R.id.tprtpi) {
+        } else if (id == R.id.tprtce) {
             if (!mapinha.isVisible()) {
                 puxarMapa(mapinha);
             }
-            mapinha.rotaPrPi();
+            mapinha.rotaPrCe();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
