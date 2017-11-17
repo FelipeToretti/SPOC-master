@@ -25,11 +25,11 @@
             android:title="Rotas dos Ônibus">
             <menu>
                 <item
-                    android:id="@+id/tprtpi"
-                    android:title="T. Próspera > T. Pinheirinho"></item>
+                    android:id="@+id/tprtce"
+                    android:title="T. Próspera > T. Centro"></item>
                 <item
-                    android:id="@+id/tpitpr"
-                    android:title="T. Pinheirinho > T. Próspera"></item>
+                    android:id="@+id/tpitce"
+                    android:title="T. Pinheirinho > T. Centro"></item>
 
             </menu>
         </item>
@@ -39,10 +39,6 @@
             android:icon="@drawable/ic_logout"
             android:title="Desconectar" />
 
-        <item
-            android:id="@+id/nav_teste"
-            android:icon="@drawable/ic_menu_manage"
-            android:title="Testar" />
 
     </group>
 

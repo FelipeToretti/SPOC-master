@@ -185,7 +185,6 @@ public class BackgroundWorker extends AsyncTask<String, Void, String> {
                 BackgroundWorker.posicao = "";
                 result = result.substring(1);
                 BackgroundWorker.posicao = result;
-                mostrarToast(BackgroundWorker.posicao);
             }
 
         }

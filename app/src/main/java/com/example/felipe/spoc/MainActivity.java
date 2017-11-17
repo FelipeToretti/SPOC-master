@@ -26,6 +26,7 @@ public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private FragmentManager fragmentManager;
+    int primeiravez = 0;
 
 
     @Override
@@ -54,7 +55,6 @@ public class MainActivity extends AppCompatActivity
         transaction.add(R.id.container, new MapsFragment(), "MapsFragment");
         transaction.commitAllowingStateLoss();
         mostrarToastLongo("Bem vindo, " + getIntent().getStringExtra("nomedocara"));
-
 
 
     }
@@ -86,7 +86,8 @@ public class MainActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            return true;
+            MapsFragment mapinha = (MapsFragment) getSupportFragmentManager().findFragmentByTag("MapsFragment");
+            mapinha.limparMapa();
         }
 
         return super.onOptionsItemSelected(item);
@@ -108,26 +109,31 @@ public class MainActivity extends AppCompatActivity
         MapsFragment mapinha = (MapsFragment) getSupportFragmentManager().findFragmentByTag("MapsFragment");
         int id = item.getItemId();
         if (id == R.id.nav_temporeal) {
-
+            if (!mapinha.isVisible()) {
+                puxarMapa(mapinha);
+            }
+            if (primeiravez == 0) {
+                mapinha.startCountDownTimer();
+                primeiravez++;
+            } else {
+                mapinha.alteraTimer();
+            }
         } else if (id == R.id.hCentenario) {
             horarioCentenario();
-        } else if (id == R.id.hSantaCatarina){
+        } else if (id == R.id.hSantaCatarina) {
             horarioHospital();
         } else if (id == R.id.tpitce) {
             if (!mapinha.isVisible()) {
                 puxarMapa(mapinha);
             }
             mapinha.rotaPiCe();
-        } else if (id == R.id.nav_logout) {
-            signOut();
-        } else if (id == R.id.nav_teste) {
-
-            mapinha.startCountDownTimer();
         } else if (id == R.id.tprtce) {
             if (!mapinha.isVisible()) {
                 puxarMapa(mapinha);
             }
             mapinha.rotaPrCe();
+        } else if (id == R.id.nav_logout) {
+            signOut();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
