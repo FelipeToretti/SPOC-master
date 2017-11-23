@@ -37,6 +37,8 @@ public class RegisterActivity extends AppCompatActivity {
         });
     }
 
+    //a
+
     public void onReg(View view){
         AutoCompleteTextView email = (AutoCompleteTextView) findViewById(R.id.emailREGISTRO);
         ConnectivityManager connectivityManager = (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);

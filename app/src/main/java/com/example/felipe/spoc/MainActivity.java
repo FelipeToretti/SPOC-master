@@ -141,6 +141,8 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
+    //a
+
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     void signOut() {
         finishAffinity();

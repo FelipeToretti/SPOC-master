@@ -251,7 +251,7 @@ public class MapsFragment extends SupportMapFragment implements OnMapReadyCallba
 
     public void startCountDownTimer() {
         atual = mMap.addMarker(new MarkerOptions().position(new LatLng(-28.210056, 118.150468)));
-        cdt = new CountDownTimer(120000, 3000) {
+        cdt = new CountDownTimer(240000, 3000) {
             @Override
             public void onTick(long millisUntilFinished) {
                 ativado = true;

@@ -26,4 +26,5 @@ public class HospitalscFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_hospitalsc, container, false);
     }
 
+    //a
 }

@@ -43,6 +43,8 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
+    //a
+
     public void onLogin(View view){
 
         ConnectivityManager connectivityManager = (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);

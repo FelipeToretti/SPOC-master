@@ -18,6 +18,8 @@ public class SplashScreen extends AppCompatActivity {
     private int i=0;
     TextView textView;
 
+    //a
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
